@@ -5,380 +5,204 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roblox Clothing Copier</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
   :root {
-    --bg: #0d0f1a;
-    --surface: #151829;
-    --surface2: #1c2035;
-    --border: #2a2f4a;
-    --accent: #6c63ff;
-    --accent2: #ff6584;
-    --green: #00e5a0;
-    --text: #e8eaf6;
-    --muted: #7b82a8;
-    --radius: 12px;
+    --bg: #1a1a2e;
+    --surface: #16213e;
+    --surface2: #0f3460;
+    --border: #2a2d4a;
+    --accent: #e94560;
+    --accent2: #533483;
+    --green: #00b4d8;
+    --text: #eaeaea;
+    --muted: #8892b0;
+    --radius: 10px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
 
   header {
-    padding: 20px 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--border);
+    padding: 16px 28px;
+    display: flex; align-items: center; gap: 12px;
     background: var(--surface);
+    border-bottom: 1px solid var(--border);
   }
-
   .logo {
-    width: 36px; height: 36px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-radius: 10px;
+    width: 34px; height: 34px;
+    background: var(--accent);
+    border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
     font-size: 18px;
   }
-
-  header h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-
-  header span {
-    font-size: 12px;
-    color: var(--muted);
-    background: var(--surface2);
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
+  header h1 { font-size: 17px; font-weight: 700; }
+  .rbx-badge {
     margin-left: auto;
+    font-size: 11px; color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 3px 10px; border-radius: 20px;
   }
 
-  .main {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 0;
-    overflow: hidden;
-  }
+  .layout { display: flex; flex: 1; overflow: hidden; }
 
+  /* SIDEBAR */
   .sidebar {
+    width: 280px; min-width: 280px;
     background: var(--surface);
     border-right: 1px solid var(--border);
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    padding: 20px 16px;
+    display: flex; flex-direction: column; gap: 18px;
     overflow-y: auto;
   }
 
-  .section-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
+  .label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px;
   }
 
-  .type-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .type-btn {
-    background: var(--surface2);
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 8px;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s;
-    color: var(--text);
-    font-size: 13px;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .type-btn:hover { border-color: var(--accent); }
-  .type-btn.active {
-    border-color: var(--accent);
-    background: rgba(108, 99, 255, 0.15);
-    color: #a89eff;
-  }
-
-  .type-btn .icon { font-size: 22px; display: block; margin-bottom: 4px; }
-
-  /* Upload area */
-  .upload-zone {
-    border: 2px dashed var(--border);
-    border-radius: var(--radius);
-    padding: 24px 16px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .upload-zone:hover { border-color: var(--accent); background: rgba(108,99,255,0.05); }
-  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-  .upload-zone .upload-icon { font-size: 28px; margin-bottom: 8px; }
-  .upload-zone p { font-size: 13px; color: var(--muted); line-height: 1.5; }
-  .upload-zone strong { color: var(--accent); font-weight: 600; }
-
-  /* URL input */
-  .url-row {
-    display: flex;
-    gap: 8px;
-  }
-
-  .url-row input {
-    flex: 1;
-    background: var(--surface2);
-    border: 1px solid var(--border);
+  /* Type tabs — styled like Roblox Create menu */
+  .type-tabs { display: flex; flex-direction: column; gap: 2px; }
+  .tab {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
     border-radius: 8px;
-    padding: 9px 12px;
-    color: var(--text);
-    font-size: 13px;
+    cursor: pointer;
+    font-size: 13px; font-weight: 500;
+    color: var(--muted);
+    border: none; background: none;
     font-family: 'Inter', sans-serif;
-    outline: none;
-    transition: border-color 0.2s;
+    transition: all 0.15s;
+    text-align: left;
   }
+  .tab:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+  .tab.active { background: var(--accent); color: #fff; }
+  .tab .t-icon { font-size: 16px; }
 
-  .url-row input:focus { border-color: var(--accent); }
-  .url-row input::placeholder { color: var(--muted); }
+  /* Upload */
+  .upload-zone {
+    border: 2px dashed var(--border); border-radius: var(--radius);
+    padding: 20px 12px; text-align: center; cursor: pointer;
+    transition: all 0.2s; position: relative;
+  }
+  .upload-zone:hover { border-color: var(--accent); background: rgba(233,69,96,0.05); }
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .upload-zone .u-icon { font-size: 26px; margin-bottom: 6px; }
+  .upload-zone p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .upload-zone strong { color: var(--accent); }
+
+  /* ID input */
+  .row { display: flex; gap: 6px; }
+  .inp {
+    flex: 1; background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; color: var(--text);
+    font-size: 13px; font-family: 'Inter', sans-serif;
+    outline: none; transition: border-color 0.2s;
+  }
+  .inp:focus { border-color: var(--accent); }
+  .inp::placeholder { color: var(--muted); }
 
   .btn {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 9px 16px;
-    font-size: 13px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
+    background: var(--accent); color: #fff; border: none;
+    border-radius: 8px; padding: 9px 14px;
+    font-size: 13px; font-family: 'Inter', sans-serif;
+    font-weight: 600; cursor: pointer; transition: all 0.15s;
   }
-
-  .btn:hover { background: #8a83ff; transform: translateY(-1px); }
-  .btn:active { transform: translateY(0); }
-
+  .btn:hover { opacity: 0.85; }
   .btn-outline {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border); color: var(--text);
   }
+  .btn-outline:hover { border-color: var(--accent); }
+  .btn-blue { background: var(--green); color: #0d0f1a; }
 
-  .btn-outline:hover { border-color: var(--accent); background: rgba(108,99,255,0.1); }
+  /* Sliders */
+  .sliders { display: flex; flex-direction: column; gap: 10px; }
+  .sl-row { display: flex; align-items: center; gap: 8px; }
+  .sl-row label { font-size: 11px; color: var(--muted); width: 72px; }
+  .sl-row input[type=range] { flex: 1; accent-color: var(--accent); }
+  .sl-row span { font-size: 11px; color: var(--muted); width: 28px; text-align: right; }
 
-  .btn-green {
-    background: var(--green);
-    color: #0d0f1a;
-  }
+  /* Export buttons */
+  .export-stack { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+  .hint { font-size: 11px; color: var(--muted); line-height: 1.6; margin-top: 6px; }
+  .hint b { color: var(--text); }
 
-  .btn-green:hover { background: #00ffb3; }
-
-  /* ID lookup */
-  .asset-preview {
-    background: var(--surface2);
-    border-radius: var(--radius);
-    padding: 14px;
-    display: none;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .asset-preview.visible { display: flex; }
-  .asset-preview img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
-  .asset-preview .info { flex: 1; }
-  .asset-preview .info strong { font-size: 13px; display: block; margin-bottom: 2px; }
-  .asset-preview .info span { font-size: 11px; color: var(--muted); }
-
-  /* Canvas area */
+  /* CANVAS AREA */
   .canvas-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-    background: var(--bg);
-    position: relative;
-    gap: 20px;
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: #12131f; gap: 16px; padding: 28px;
   }
 
   .canvas-wrap {
-    position: relative;
-    display: inline-block;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.5);
+    position: relative; display: none;
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 0 0 1px var(--border), 0 16px 48px rgba(0,0,0,0.6);
   }
-
-  /* Checkerboard for transparency */
-  .canvas-bg {
-    position: absolute;
-    inset: 0;
+  .checker {
+    position: absolute; inset: 0;
     background-image:
-      linear-gradient(45deg, #1a1c2e 25%, transparent 25%),
-      linear-gradient(-45deg, #1a1c2e 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, #1a1c2e 75%),
-      linear-gradient(-45deg, transparent 75%, #1a1c2e 75%);
-    background-size: 16px 16px;
-    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-    background-color: #14162a;
+      linear-gradient(45deg,#1e2035 25%,transparent 25%),
+      linear-gradient(-45deg,#1e2035 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#1e2035 75%),
+      linear-gradient(-45deg,transparent 75%,#1e2035 75%);
+    background-size: 12px 12px;
+    background-position: 0 0,0 6px,6px -6px,-6px 0;
+    background-color: #171828;
   }
+  canvas { display: block; position: relative; image-rendering: pixelated; }
 
-  canvas {
-    display: block;
-    position: relative;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
+  .empty-state {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 10px; color: var(--muted);
   }
+  .empty-state .e-icon { font-size: 52px; }
+  .empty-state p { font-size: 14px; }
+  .empty-state small { font-size: 12px; opacity: 0.6; }
 
-  .canvas-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 12px;
-    background: rgba(13, 15, 26, 0.7);
-    backdrop-filter: blur(4px);
+  .meta-pills { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .pill {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 13px; font-size: 11px;
+    display: flex; align-items: center; gap: 5px;
   }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: #00e5a0; }
 
-  .canvas-overlay p { color: var(--muted); font-size: 14px; }
-  .canvas-overlay .big-icon { font-size: 48px; }
+  .action-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
 
-  /* Template info */
-  .template-info {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .info-pill {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .info-pill .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-  }
-
-  /* Action bar */
-  .action-bar {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  /* Tools row */
-  .tools-row {
-    display: flex;
-    gap: 8px;
-    padding: 12px 20px;
-    background: var(--surface);
+  /* Toolbar */
+  .toolbar {
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+    padding: 10px 20px; background: var(--surface);
     border-top: 1px solid var(--border);
-    justify-content: center;
-    flex-wrap: wrap;
   }
-
-  .tool-btn {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 14px;
-    cursor: pointer;
-    color: var(--text);
-    font-size: 12px;
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s;
+  .tool {
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    border-radius: 7px; padding: 7px 13px;
+    font-size: 12px; font-family: 'Inter', sans-serif;
+    color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 5px;
+    transition: all 0.15s;
   }
+  .tool:hover { border-color: var(--accent); color: var(--accent); }
 
-  .tool-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* Color overlay controls */
-  .color-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .color-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .color-row label { font-size: 12px; color: var(--muted); width: 80px; }
-
-  .color-row input[type="color"] {
-    width: 36px; height: 28px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: none;
-    cursor: pointer;
-    padding: 2px;
-  }
-
-  .color-row input[type="range"] {
-    flex: 1;
-    accent-color: var(--accent);
-  }
-
-  .color-row span { font-size: 11px; color: var(--muted); width: 30px; text-align: right; }
-
-  /* Notification */
   .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--green);
-    color: #0d0f1a;
-    padding: 12px 24px;
-    border-radius: 100px;
-    font-weight: 600;
-    font-size: 14px;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 100;
-    pointer-events: none;
+    position: fixed; bottom: 22px; left: 50%;
+    transform: translateX(-50%) translateY(70px);
+    background: #00e5a0; color: #0d0f1a;
+    padding: 10px 22px; border-radius: 100px;
+    font-weight: 700; font-size: 13px;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    z-index: 999; pointer-events: none;
   }
-
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .main { grid-template-columns: 1fr; }
-    .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+  @media(max-width:700px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid var(--border); }
     .canvas-area { padding: 16px; }
   }
 </style>
@@ -386,425 +210,318 @@
 <body>
 
 <header>
-  <div class="logo">👕</div>
+  <div class="logo">🎮</div>
   <h1>Roblox Clothing Copier</h1>
-  <span>2D Template Tool</span>
+  <div class="rbx-badge">2D Template Tool</div>
 </header>
 
-<div class="main">
-  <!-- Sidebar -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
   <div class="sidebar">
 
-    <!-- Type selector -->
+    <!-- Type -->
     <div>
-      <div class="section-title">Тип одежды</div>
-      <div class="type-grid">
-        <button class="type-btn active" onclick="setType('shirt')" id="btn-shirt">
-          <span class="icon">👕</span>Рубашка
+      <div class="label">Тип одежды</div>
+      <div class="type-tabs">
+        <button class="tab active" id="tab-shirt" onclick="setType('shirt')">
+          <span class="t-icon">👕</span> Classic Shirts
         </button>
-        <button class="type-btn" onclick="setType('pants')" id="btn-pants">
-          <span class="icon">👖</span>Штаны
+        <button class="tab" id="tab-pants" onclick="setType('pants')">
+          <span class="t-icon">👖</span> Classic Pants
         </button>
-        <button class="type-btn" onclick="setType('tshirt')" id="btn-tshirt">
-          <span class="icon">🎽</span>Футболка
-        </button>
-        <button class="type-btn" onclick="setType('sweater')" id="btn-sweater">
-          <span class="icon">🧥</span>Свитер
+        <button class="tab" id="tab-tshirt" onclick="setType('tshirt')">
+          <span class="t-icon">🎽</span> Classic T-Shirts
         </button>
       </div>
     </div>
 
     <!-- Upload -->
     <div>
-      <div class="section-title">Загрузить изображение</div>
+      <div class="label">Загрузить файл</div>
       <div class="upload-zone" id="uploadZone">
-        <input type="file" accept="image/png,image/jpeg,image/gif" onchange="handleFileUpload(event)" />
-        <div class="upload-icon">📁</div>
-        <p><strong>Выбери файл</strong> или перетащи сюда<br/>PNG, JPG, GIF до 10MB</p>
+        <input type="file" accept="image/*" onchange="handleFile(event)" />
+        <div class="u-icon">📂</div>
+        <p><strong>Выбери файл</strong> или перетащи<br/>PNG, JPG — любой размер</p>
       </div>
     </div>
 
     <!-- Asset ID -->
     <div>
-      <div class="section-title">ID одежды Roblox</div>
-      <div class="url-row">
-        <input type="text" id="assetId" placeholder="Напр: 12345678" />
-        <button class="btn" onclick="loadFromId()">↓</button>
+      <div class="label">ID ассета Roblox</div>
+      <div class="row">
+        <input class="inp" type="text" id="assetId" placeholder="Напр: 12345678" />
+        <button class="btn" onclick="loadById()">↓</button>
       </div>
-      <div style="margin-top: 8px; font-size: 11px; color: var(--muted);">
-        Вставь ID ассета из URL: roblox.com/catalog/<b style="color:var(--accent)">12345678</b>/...
-      </div>
-      <div class="asset-preview" id="assetPreview">
-        <img id="previewThumb" src="" alt="" />
-        <div class="info">
-          <strong id="previewName">Название одежды</strong>
-          <span id="previewType">Тип: Shirt</span>
-        </div>
-      </div>
+      <div class="hint">URL: roblox.com/catalog/<b>12345678</b>/...</div>
     </div>
 
-    <!-- Color adjustments -->
+    <!-- Adjustments -->
     <div>
-      <div class="section-title">Корректировка цвета</div>
-      <div class="color-controls">
-        <div class="color-row">
+      <div class="label">Цвет / Яркость</div>
+      <div class="sliders">
+        <div class="sl-row">
           <label>Яркость</label>
-          <input type="range" min="-100" max="100" value="0" id="brightness" oninput="applyFilters()" />
-          <span id="brightnessVal">0</span>
+          <input type="range" min="-100" max="100" value="0" id="br" oninput="applyFilters()" />
+          <span id="brv">0</span>
         </div>
-        <div class="color-row">
+        <div class="sl-row">
           <label>Контраст</label>
-          <input type="range" min="-100" max="100" value="0" id="contrast" oninput="applyFilters()" />
-          <span id="contrastVal">0</span>
+          <input type="range" min="-100" max="100" value="0" id="co" oninput="applyFilters()" />
+          <span id="cov">0</span>
         </div>
-        <div class="color-row">
+        <div class="sl-row">
           <label>Насыщ.</label>
-          <input type="range" min="-100" max="100" value="0" id="saturation" oninput="applyFilters()" />
-          <span id="saturationVal">0</span>
+          <input type="range" min="-100" max="100" value="0" id="sa" oninput="applyFilters()" />
+          <span id="sav">0</span>
         </div>
-        <button class="btn btn-outline" style="font-size:12px;padding:7px 12px;" onclick="resetFilters()">Сбросить настройки</button>
+        <button class="btn btn-outline" style="font-size:11px;padding:6px;" onclick="resetFilters()">Сбросить</button>
       </div>
     </div>
 
     <!-- Export -->
-    <div style="margin-top:auto; padding-top:8px;">
-      <div class="section-title">Экспорт</div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <button class="btn btn-green" onclick="exportPNG()">⬇ Скачать PNG</button>
-        <button class="btn btn-outline" onclick="copyToClipboard()">📋 Копировать в буфер</button>
-      </div>
-      <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6;">
-        Готовый файл загружай на Roblox в разделе <b style="color:var(--text)">Create → Clothing</b>. Размер должен быть <b style="color:var(--accent)">585×559 px</b> для рубашки/штанов.
-      </div>
+    <div class="export-stack">
+      <div class="label">Экспорт</div>
+      <button class="btn btn-blue" onclick="exportPNG()">⬇ Скачать PNG</button>
+      <button class="btn btn-outline" onclick="copyClip()">📋 Скопировать</button>
+      <div class="hint">Загружай в Roblox: <b>Create → Clothing</b><br/>Рубашка/Штаны: <b>585×559 px</b><br/>Футболка: <b>128×128 px</b></div>
     </div>
 
   </div>
 
-  <!-- Canvas area -->
+  <!-- CANVAS -->
   <div style="display:flex;flex-direction:column;flex:1;">
     <div class="canvas-area" id="canvasArea">
-      <div id="canvasWrap" class="canvas-wrap" style="display:none;">
-        <div class="canvas-bg"></div>
-        <canvas id="mainCanvas" width="585" height="559"></canvas>
+
+      <div id="emptyState" class="empty-state">
+        <div class="e-icon">👕</div>
+        <p>Загрузи одежду или вставь ID</p>
+        <small>PNG/JPG файл или номер ассета из Roblox</small>
       </div>
 
-      <div class="canvas-overlay" id="emptyState">
-        <div class="big-icon">👕</div>
-        <p>Загрузи изображение одежды</p>
-        <p style="font-size:12px; opacity:0.5;">PNG/JPG файл или по ID ассета</p>
+      <div class="canvas-wrap" id="canvasWrap">
+        <div class="checker"></div>
+        <canvas id="cv"></canvas>
       </div>
 
-      <div class="template-info" id="templateInfo" style="display:none;">
-        <div class="info-pill"><div class="dot"></div><span id="dimInfo">585 × 559 px</span></div>
-        <div class="info-pill"><div class="dot"></div><span id="typeInfo">Тип: Shirt</span></div>
-        <div class="info-pill"><div class="dot" style="background:var(--accent)"></div><span>PNG формат</span></div>
+      <div class="meta-pills" id="metaPills" style="display:none;">
+        <div class="pill"><div class="dot"></div><span id="dimPill">585×559 px</span></div>
+        <div class="pill"><div class="dot"></div><span id="typePill">Classic Shirts</span></div>
+        <div class="pill"><div class="dot" style="background:var(--accent)"></div><span>PNG</span></div>
       </div>
 
-      <div class="action-bar" id="actionBar" style="display:none;">
-        <button class="btn btn-outline" onclick="flipHorizontal()">↔ Отразить</button>
-        <button class="btn btn-outline" onclick="rotateImage()">↻ Повернуть</button>
-        <button class="btn btn-outline" onclick="fitToTemplate()">⊡ По шаблону</button>
-        <button class="btn btn-green" onclick="exportPNG()">⬇ Скачать</button>
+      <div class="action-row" id="actionRow" style="display:none;">
+        <button class="btn btn-outline" onclick="doFlip()">↔ Отразить</button>
+        <button class="btn btn-outline" onclick="doRotate()">↻ Повернуть</button>
+        <button class="btn btn-outline" onclick="showTplLines()">📐 Шаблон</button>
+        <button class="btn btn-blue" onclick="exportPNG()">⬇ Скачать</button>
       </div>
+
     </div>
 
-    <!-- Bottom tools -->
-    <div class="tools-row">
-      <button class="tool-btn" onclick="showTemplate()">🗂 Показать шаблон</button>
-      <button class="tool-btn" onclick="overlayGrid()">⊞ Сетка</button>
-      <button class="tool-btn" onclick="zoomIn()">🔍+</button>
-      <button class="tool-btn" onclick="zoomOut()">🔍−</button>
-      <button class="tool-btn" onclick="resetZoom()">⊙ 100%</button>
-      <button class="tool-btn" onclick="clearCanvas()">🗑 Очистить</button>
+    <div class="toolbar">
+      <button class="tool" onclick="toggleGrid()">⊞ Сетка</button>
+      <button class="tool" onclick="zoomIn()">🔍 +</button>
+      <button class="tool" onclick="zoomOut()">🔍 −</button>
+      <button class="tool" onclick="resetZoom()">100%</button>
+      <button class="tool" onclick="clearAll()">🗑 Очистить</button>
     </div>
   </div>
+
 </div>
 
-<div class="toast" id="toast">✓ Готово!</div>
+<div class="toast" id="toast"></div>
 
 <script>
-// State
-let currentType = 'shirt';
-let loadedImage = null;
-let rotation = 0;
-let flipped = false;
-let scale = 1;
-let showGrid = false;
-let gridOverlay = false;
-let brightnessVal = 0, contrastVal = 0, saturationVal = 0;
-
-// Templates dimensions by type
-const templates = {
-  shirt:   { w: 585, h: 559, label: 'Рубашка', guide: '585×559' },
-  pants:   { w: 585, h: 559, label: 'Штаны',   guide: '585×559' },
-  tshirt:  { w: 128, h: 128, label: 'Футболка', guide: '128×128' },
-  sweater: { w: 585, h: 559, label: 'Свитер',   guide: '585×559' }
+const TYPES = {
+  shirt:  { w: 585, h: 559, label: 'Classic Shirts' },
+  pants:  { w: 585, h: 559, label: 'Classic Pants' },
+  tshirt: { w: 128, h: 128, label: 'Classic T-Shirts' }
 };
 
-function setType(type) {
-  currentType = type;
-  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('btn-' + type).classList.add('active');
-  const t = templates[type];
-  const canvas = document.getElementById('mainCanvas');
-  canvas.width = t.w;
-  canvas.height = t.h;
-  document.getElementById('dimInfo').textContent = t.guide + ' px';
-  document.getElementById('typeInfo').textContent = 'Тип: ' + t.label;
-  if (loadedImage) redraw();
+let type = 'shirt';
+let img = null;
+let rot = 0, flip = false, sc = 1, grid = false;
+let br = 0, co = 0, sa = 0;
+
+function setType(t) {
+  type = t;
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + t).classList.add('active');
+  const cv = document.getElementById('cv');
+  cv.width = TYPES[t].w; cv.height = TYPES[t].h;
+  document.getElementById('dimPill').textContent = TYPES[t].w + '×' + TYPES[t].h + ' px';
+  document.getElementById('typePill').textContent = TYPES[t].label;
+  if (img) redraw();
 }
 
-function handleFileUpload(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const img = new Image();
-    img.onload = () => {
-      loadedImage = img;
-      rotation = 0; flipped = false;
-      showCanvas();
-      redraw();
-    };
-    img.src = ev.target.result;
-  };
-  reader.readAsDataURL(file);
+function handleFile(e) {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => loadImg(ev.target.result);
+  r.readAsDataURL(f);
 }
 
-function showCanvas() {
-  document.getElementById('canvasWrap').style.display = 'inline-block';
+function loadImg(src) {
+  const i = new Image();
+  i.onload = () => { img = i; rot = 0; flip = false; showCv(); redraw(); };
+  i.onerror = () => toast('Не удалось загрузить изображение');
+  i.src = src;
+}
+
+function showCv() {
   document.getElementById('emptyState').style.display = 'none';
-  document.getElementById('templateInfo').style.display = 'flex';
-  document.getElementById('actionBar').style.display = 'flex';
+  document.getElementById('canvasWrap').style.display = 'inline-block';
+  document.getElementById('metaPills').style.display = 'flex';
+  document.getElementById('actionRow').style.display = 'flex';
 }
 
 function redraw() {
-  if (!loadedImage) return;
-  const canvas = document.getElementById('mainCanvas');
-  const ctx = canvas.getContext('2d');
-  const t = templates[currentType];
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (!img) return;
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0, 0, cv.width, cv.height);
   ctx.save();
-  ctx.translate(canvas.width / 2, canvas.height / 2);
-  if (flipped) ctx.scale(-1, 1);
-  ctx.rotate(rotation * Math.PI / 180);
-
-  // Apply CSS-like filters via globalAlpha trick
-  // (Real pixel manipulation for brightness/contrast/saturation)
-  const brt = brightnessVal;
-  const con = contrastVal;
-  const sat = saturationVal;
-  ctx.filter = `brightness(${1 + brt/100}) contrast(${1 + con/100}) saturate(${1 + sat/100})`;
-
-  ctx.drawImage(loadedImage, -canvas.width/2, -canvas.height/2, canvas.width, canvas.height);
+  ctx.translate(cv.width / 2, cv.height / 2);
+  if (flip) ctx.scale(-1, 1);
+  ctx.rotate(rot * Math.PI / 180);
+  ctx.filter = `brightness(${1 + br/100}) contrast(${1 + co/100}) saturate(${1 + sa/100})`;
+  ctx.drawImage(img, -cv.width/2, -cv.height/2, cv.width, cv.height);
   ctx.restore();
-
-  // Grid overlay
-  if (gridOverlay) drawGrid(ctx, canvas.width, canvas.height);
+  if (grid) drawGrid(ctx, cv.width, cv.height);
 }
 
 function drawGrid(ctx, w, h) {
   ctx.save();
-  ctx.strokeStyle = 'rgba(108,99,255,0.3)';
+  ctx.strokeStyle = 'rgba(233,69,96,0.25)';
   ctx.lineWidth = 0.5;
-  const step = 32;
-  for (let x = 0; x <= w; x += step) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-  }
-  for (let y = 0; y <= h; y += step) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-  }
+  const s = type === 'tshirt' ? 8 : 32;
+  for (let x = 0; x <= w; x += s) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
+  for (let y = 0; y <= h; y += s) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
   ctx.restore();
 }
 
-function flipHorizontal() {
-  flipped = !flipped;
-  redraw();
-}
+function doFlip() { flip = !flip; redraw(); }
+function doRotate() { rot = (rot + 90) % 360; redraw(); }
 
-function rotateImage() {
-  rotation = (rotation + 90) % 360;
+function showTplLines() {
+  if (!img) return;
   redraw();
-}
-
-function fitToTemplate() {
-  rotation = 0; flipped = false;
-  redraw();
-  showToast('Изображение выровнено по шаблону');
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  const w = cv.width, h = cv.height;
+  ctx.save();
+  ctx.strokeStyle = 'rgba(0,229,160,0.7)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([5,4]);
+  if (type === 'shirt') {
+    // Body
+    ctx.strokeRect(w*.128, h*.018, w*.744, h*.597);
+    // Left sleeve
+    ctx.strokeRect(w*.018, h*.018, w*.107, h*.394);
+    // Right sleeve
+    ctx.strokeRect(w*.875, h*.018, w*.107, h*.394);
+    // Collar hint
+    ctx.beginPath(); ctx.arc(w*.5, h*.018, w*.08, 0, Math.PI); ctx.stroke();
+  } else if (type === 'pants') {
+    // Waist
+    ctx.strokeRect(w*.128, h*.018, w*.744, h*.35);
+    // Left leg
+    ctx.strokeRect(w*.128, h*.37, w*.36, h*.6);
+    // Right leg
+    ctx.strokeRect(w*.512, h*.37, w*.36, h*.6);
+  } else {
+    // T-shirt: just center square for the image
+    const m = 8;
+    ctx.strokeRect(m, m, w - m*2, h - m*2);
+  }
+  ctx.restore();
+  toast('Шаблон показан');
 }
 
 function applyFilters() {
-  brightnessVal = +document.getElementById('brightness').value;
-  contrastVal = +document.getElementById('contrast').value;
-  saturationVal = +document.getElementById('saturation').value;
-  document.getElementById('brightnessVal').textContent = brightnessVal;
-  document.getElementById('contrastVal').textContent = contrastVal;
-  document.getElementById('saturationVal').textContent = saturationVal;
-  if (loadedImage) redraw();
+  br = +document.getElementById('br').value;
+  co = +document.getElementById('co').value;
+  sa = +document.getElementById('sa').value;
+  document.getElementById('brv').textContent = br;
+  document.getElementById('cov').textContent = co;
+  document.getElementById('sav').textContent = sa;
+  if (img) redraw();
 }
 
 function resetFilters() {
-  ['brightness','contrast','saturation'].forEach(id => {
-    document.getElementById(id).value = 0;
-  });
-  brightnessVal = contrastVal = saturationVal = 0;
-  ['brightnessVal','contrastVal','saturationVal'].forEach(id => {
-    document.getElementById(id).textContent = '0';
-  });
-  if (loadedImage) redraw();
+  ['br','co','sa'].forEach(id => document.getElementById(id).value = 0);
+  br = co = sa = 0;
+  ['brv','cov','sav'].forEach(id => document.getElementById(id).textContent = '0');
+  if (img) redraw();
 }
 
-function zoomIn() {
-  scale = Math.min(scale * 1.2, 3);
-  applyZoom();
-}
+function toggleGrid() { grid = !grid; redraw(); toast(grid ? 'Сетка включена' : 'Сетка выключена'); }
+function zoomIn() { sc = Math.min(sc*1.25, 4); document.getElementById('canvasWrap').style.transform = `scale(${sc})`; }
+function zoomOut() { sc = Math.max(sc/1.25, 0.2); document.getElementById('canvasWrap').style.transform = `scale(${sc})`; }
+function resetZoom() { sc = 1; document.getElementById('canvasWrap').style.transform = 'scale(1)'; }
 
-function zoomOut() {
-  scale = Math.max(scale / 1.2, 0.3);
-  applyZoom();
-}
-
-function resetZoom() {
-  scale = 1;
-  applyZoom();
-}
-
-function applyZoom() {
-  const wrap = document.getElementById('canvasWrap');
-  wrap.style.transform = `scale(${scale})`;
-}
-
-function overlayGrid() {
-  gridOverlay = !gridOverlay;
-  redraw();
-  showToast(gridOverlay ? 'Сетка включена' : 'Сетка выключена');
-}
-
-function showTemplate() {
-  // Draw Roblox shirt template outline
-  if (!loadedImage) {
-    showToast('Сначала загрузи изображение');
-    return;
-  }
-  const canvas = document.getElementById('mainCanvas');
-  const ctx = canvas.getContext('2d');
-  redraw();
-  // Draw shirt template overlay lines
-  ctx.save();
-  ctx.strokeStyle = 'rgba(255,101,132,0.6)';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4, 4]);
-
-  const w = canvas.width, h = canvas.height;
-  if (currentType === 'shirt' || currentType === 'sweater') {
-    // Torso area (rough shirt template)
-    ctx.strokeRect(w*0.12, h*0.02, w*0.76, h*0.60);
-    ctx.strokeRect(w*0.02, h*0.18, w*0.10, h*0.42);  // left sleeve
-    ctx.strokeRect(w*0.88, h*0.18, w*0.10, h*0.42);  // right sleeve
-  } else if (currentType === 'pants') {
-    ctx.strokeRect(w*0.12, h*0.02, w*0.76, h*0.45);
-    ctx.strokeRect(w*0.12, h*0.50, w*0.36, h*0.45);
-    ctx.strokeRect(w*0.52, h*0.50, w*0.36, h*0.45);
-  }
-  ctx.restore();
-  showToast('Шаблон показан (красные линии)');
+function clearAll() {
+  img = null; rot = 0; flip = false; sc = 1;
+  document.getElementById('canvasWrap').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'flex';
+  document.getElementById('metaPills').style.display = 'none';
+  document.getElementById('actionRow').style.display = 'none';
+  document.getElementById('cv').getContext('2d').clearRect(0,0,999,999);
+  resetFilters(); toast('Очищено');
 }
 
 function exportPNG() {
-  if (!loadedImage) { showToast('Нет изображения для экспорта!'); return; }
-  const canvas = document.getElementById('mainCanvas');
-  const link = document.createElement('a');
-  link.download = `roblox_${currentType}_${Date.now()}.png`;
-  link.href = canvas.toDataURL('image/png');
-  link.click();
-  showToast('PNG скачан!');
+  if (!img) { toast('Нет изображения!'); return; }
+  const cv = document.getElementById('cv');
+  const a = document.createElement('a');
+  a.download = `roblox_${type}_${Date.now()}.png`;
+  a.href = cv.toDataURL('image/png');
+  a.click();
+  toast('PNG скачан!');
 }
 
-async function copyToClipboard() {
-  if (!loadedImage) { showToast('Нет изображения!'); return; }
-  const canvas = document.getElementById('mainCanvas');
-  canvas.toBlob(async blob => {
+async function copyClip() {
+  if (!img) { toast('Нет изображения!'); return; }
+  const cv = document.getElementById('cv');
+  cv.toBlob(async b => {
     try {
-      await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
-      showToast('Скопировано в буфер!');
-    } catch {
-      showToast('Скопируй вручную (Ctrl+C)');
-    }
+      await navigator.clipboard.write([new ClipboardItem({'image/png': b})]);
+      toast('Скопировано!');
+    } catch { toast('Не удалось — скопируй вручную'); }
   });
 }
 
-function clearCanvas() {
-  loadedImage = null;
-  rotation = 0; flipped = false;
-  const canvas = document.getElementById('mainCanvas');
-  canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
-  document.getElementById('canvasWrap').style.display = 'none';
-  document.getElementById('emptyState').style.display = 'flex';
-  document.getElementById('templateInfo').style.display = 'none';
-  document.getElementById('actionBar').style.display = 'none';
-  resetFilters();
-  showToast('Холст очищен');
-}
-
-function loadFromId() {
+function loadById() {
   const id = document.getElementById('assetId').value.trim();
-  if (!id || !/^\d+$/.test(id)) {
-    showToast('Введи числовой ID ассета!');
-    return;
-  }
-  // Roblox asset thumbnail URL (public API)
-  const thumbUrl = `https://www.roblox.com/asset-thumbnail/image?assetId=${id}&width=420&height=420&format=png`;
-  const img = new Image();
-  img.crossOrigin = 'anonymous';
-  img.onload = () => {
-    loadedImage = img;
-    rotation = 0; flipped = false;
-    showCanvas();
-    redraw();
-    // Show preview
-    document.getElementById('previewThumb').src = thumbUrl;
-    document.getElementById('previewName').textContent = 'Ассет #' + id;
-    document.getElementById('previewType').textContent = 'Тип: ' + templates[currentType].label;
-    document.getElementById('assetPreview').classList.add('visible');
-    showToast('Одежда загружена!');
-  };
-  img.onerror = () => {
-    showToast('Не удалось загрузить. Попробуй другой ID.');
-  };
-  img.src = thumbUrl;
+  if (!/^\d+$/.test(id)) { toast('Введи числовой ID!'); return; }
+  const url = `https://www.roblox.com/asset-thumbnail/image?assetId=${id}&width=420&height=420&format=png`;
+  const i = new Image();
+  i.crossOrigin = 'anonymous';
+  i.onload = () => { img = i; rot = 0; flip = false; showCv(); redraw(); toast('Загружено!'); };
+  i.onerror = () => toast('Ошибка загрузки. Проверь ID.');
+  i.src = url;
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-// Drag & drop on canvas area
-const zone = document.getElementById('canvasArea');
-zone.addEventListener('dragover', e => { e.preventDefault(); zone.style.outline = '2px dashed #6c63ff'; });
-zone.addEventListener('dragleave', () => { zone.style.outline = ''; });
-zone.addEventListener('drop', e => {
-  e.preventDefault();
-  zone.style.outline = '';
-  const file = e.dataTransfer.files[0];
-  if (!file || !file.type.startsWith('image/')) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const img = new Image();
-    img.onload = () => {
-      loadedImage = img;
-      rotation = 0; flipped = false;
-      showCanvas();
-      redraw();
-    };
-    img.src = ev.target.result;
-  };
-  reader.readAsDataURL(file);
+// Drag & drop
+const area = document.getElementById('canvasArea');
+area.addEventListener('dragover', e => { e.preventDefault(); area.style.background = 'rgba(233,69,96,0.08)'; });
+area.addEventListener('dragleave', () => { area.style.background = ''; });
+area.addEventListener('drop', e => {
+  e.preventDefault(); area.style.background = '';
+  const f = e.dataTransfer.files[0];
+  if (!f || !f.type.startsWith('image/')) return;
+  const r = new FileReader();
+  r.onload = ev => loadImg(ev.target.result);
+  r.readAsDataURL(f);
 });
 
-// Init
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
 setType('shirt');
 </script>
 </body>
