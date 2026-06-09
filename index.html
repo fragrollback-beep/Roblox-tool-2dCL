@@ -6,205 +6,90 @@
 <title>Roblox Clothing Copier</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
   :root {
-    --bg: #1a1a2e;
-    --surface: #16213e;
-    --surface2: #0f3460;
-    --border: #2a2d4a;
-    --accent: #e94560;
-    --accent2: #533483;
-    --green: #00b4d8;
-    --text: #eaeaea;
-    --muted: #8892b0;
-    --radius: 10px;
+    --bg: #1a1a2e; --surface: #16213e; --surface2: #0f3460;
+    --border: #2a2d4a; --accent: #e94560; --green: #00b4d8;
+    --text: #eaeaea; --muted: #8892b0; --radius: 10px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
 
-  header {
-    padding: 16px 28px;
-    display: flex; align-items: center; gap: 12px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-  }
-  .logo {
-    width: 34px; height: 34px;
-    background: var(--accent);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-  }
-  header h1 { font-size: 17px; font-weight: 700; }
-  .rbx-badge {
-    margin-left: auto;
-    font-size: 11px; color: var(--muted);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    padding: 3px 10px; border-radius: 20px;
-  }
+  header { padding: 14px 24px; display: flex; align-items: center; gap: 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
+  .logo { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  header h1 { font-size: 16px; font-weight: 700; }
+  .badge { margin-left: auto; font-size: 11px; color: var(--muted); background: var(--surface2); border: 1px solid var(--border); padding: 3px 10px; border-radius: 20px; }
 
   .layout { display: flex; flex: 1; overflow: hidden; }
 
-  /* SIDEBAR */
-  .sidebar {
-    width: 280px; min-width: 280px;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    padding: 20px 16px;
-    display: flex; flex-direction: column; gap: 18px;
-    overflow-y: auto;
-  }
+  .sidebar { width: 272px; min-width: 272px; background: var(--surface); border-right: 1px solid var(--border); padding: 18px 14px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; }
+  .lbl { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 
-  .label {
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 1.2px; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 8px;
-  }
-
-  /* Type tabs — styled like Roblox Create menu */
   .type-tabs { display: flex; flex-direction: column; gap: 2px; }
-  .tab {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 13px; font-weight: 500;
-    color: var(--muted);
-    border: none; background: none;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.15s;
-    text-align: left;
-  }
+  .tab { display: flex; align-items: center; gap: 9px; padding: 9px 13px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--muted); border: none; background: none; font-family: 'Inter', sans-serif; transition: all 0.15s; text-align: left; width: 100%; }
   .tab:hover { background: rgba(255,255,255,0.05); color: var(--text); }
   .tab.active { background: var(--accent); color: #fff; }
-  .tab .t-icon { font-size: 16px; }
+  .tab .ti { font-size: 15px; }
 
-  /* Upload */
-  .upload-zone {
-    border: 2px dashed var(--border); border-radius: var(--radius);
-    padding: 20px 12px; text-align: center; cursor: pointer;
-    transition: all 0.2s; position: relative;
-  }
+  .upload-zone { border: 2px dashed var(--border); border-radius: var(--radius); padding: 18px 10px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
   .upload-zone:hover { border-color: var(--accent); background: rgba(233,69,96,0.05); }
   .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-  .upload-zone .u-icon { font-size: 26px; margin-bottom: 6px; }
+  .upload-zone .ui { font-size: 24px; margin-bottom: 5px; }
   .upload-zone p { font-size: 12px; color: var(--muted); line-height: 1.5; }
   .upload-zone strong { color: var(--accent); }
 
-  /* ID input */
   .row { display: flex; gap: 6px; }
-  .inp {
-    flex: 1; background: rgba(255,255,255,0.06);
-    border: 1px solid var(--border); border-radius: 8px;
-    padding: 9px 12px; color: var(--text);
-    font-size: 13px; font-family: 'Inter', sans-serif;
-    outline: none; transition: border-color 0.2s;
-  }
+  .inp { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px; color: var(--text); font-size: 13px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s; }
   .inp:focus { border-color: var(--accent); }
   .inp::placeholder { color: var(--muted); }
 
-  .btn {
-    background: var(--accent); color: #fff; border: none;
-    border-radius: 8px; padding: 9px 14px;
-    font-size: 13px; font-family: 'Inter', sans-serif;
-    font-weight: 600; cursor: pointer; transition: all 0.15s;
-  }
+  .btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.15s; }
   .btn:hover { opacity: 0.85; }
-  .btn-outline {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--border); color: var(--text);
-  }
-  .btn-outline:hover { border-color: var(--accent); }
-  .btn-blue { background: var(--green); color: #0d0f1a; }
+  .btn-o { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text); }
+  .btn-o:hover { border-color: var(--accent); }
+  .btn-teal { background: var(--green); color: #0d0f1a; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* Sliders */
-  .sliders { display: flex; flex-direction: column; gap: 10px; }
-  .sl-row { display: flex; align-items: center; gap: 8px; }
-  .sl-row label { font-size: 11px; color: var(--muted); width: 72px; }
-  .sl-row input[type=range] { flex: 1; accent-color: var(--accent); }
-  .sl-row span { font-size: 11px; color: var(--muted); width: 28px; text-align: right; }
+  .sliders { display: flex; flex-direction: column; gap: 9px; }
+  .sl { display: flex; align-items: center; gap: 7px; }
+  .sl label { font-size: 11px; color: var(--muted); width: 68px; }
+  .sl input[type=range] { flex: 1; accent-color: var(--accent); }
+  .sl span { font-size: 11px; color: var(--muted); width: 26px; text-align: right; }
 
-  /* Export buttons */
-  .export-stack { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
-  .hint { font-size: 11px; color: var(--muted); line-height: 1.6; margin-top: 6px; }
+  .export-stack { display: flex; flex-direction: column; gap: 7px; margin-top: auto; }
+  .hint { font-size: 11px; color: var(--muted); line-height: 1.6; margin-top: 5px; }
   .hint b { color: var(--text); }
 
-  /* CANVAS AREA */
-  .canvas-area {
-    flex: 1; display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    background: #12131f; gap: 16px; padding: 28px;
-  }
+  /* ID status */
+  .id-status { font-size: 11px; margin-top: 5px; padding: 7px 10px; border-radius: 7px; display: none; }
+  .id-status.loading { background: rgba(255,255,255,0.05); color: var(--muted); display: block; }
+  .id-status.ok { background: rgba(0,180,216,0.12); color: var(--green); display: block; }
+  .id-status.err { background: rgba(233,69,96,0.12); color: var(--accent); display: block; }
 
-  .canvas-wrap {
-    position: relative; display: none;
-    border-radius: 10px; overflow: hidden;
-    box-shadow: 0 0 0 1px var(--border), 0 16px 48px rgba(0,0,0,0.6);
-  }
-  .checker {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(45deg,#1e2035 25%,transparent 25%),
-      linear-gradient(-45deg,#1e2035 25%,transparent 25%),
-      linear-gradient(45deg,transparent 75%,#1e2035 75%),
-      linear-gradient(-45deg,transparent 75%,#1e2035 75%);
-    background-size: 12px 12px;
-    background-position: 0 0,0 6px,6px -6px,-6px 0;
-    background-color: #171828;
-  }
+  /* Canvas */
+  .canvas-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #12131f; gap: 14px; padding: 28px; }
+  .canvas-wrap { position: relative; display: none; border-radius: 10px; overflow: hidden; box-shadow: 0 0 0 1px var(--border), 0 16px 48px rgba(0,0,0,0.6); }
+  .checker { position: absolute; inset: 0; background-image: linear-gradient(45deg,#1e2035 25%,transparent 25%),linear-gradient(-45deg,#1e2035 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#1e2035 75%),linear-gradient(-45deg,transparent 75%,#1e2035 75%); background-size: 12px 12px; background-position: 0 0,0 6px,6px -6px,-6px 0; background-color: #171828; }
   canvas { display: block; position: relative; image-rendering: pixelated; }
 
-  .empty-state {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 10px; color: var(--muted);
-  }
-  .empty-state .e-icon { font-size: 52px; }
-  .empty-state p { font-size: 14px; }
-  .empty-state small { font-size: 12px; opacity: 0.6; }
+  .empty { display: flex; flex-direction: column; align-items: center; gap: 9px; color: var(--muted); }
+  .empty .ei { font-size: 50px; }
+  .empty p { font-size: 14px; }
+  .empty small { font-size: 12px; opacity: 0.55; }
 
-  .meta-pills { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .pill {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 5px 13px; font-size: 11px;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: #00e5a0; }
+  .pills { display: flex; gap: 9px; flex-wrap: wrap; justify-content: center; }
+  .pill { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 11px; display: flex; align-items: center; gap: 5px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #00e5a0; }
 
-  .action-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .act-row { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
 
-  /* Toolbar */
-  .toolbar {
-    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
-    padding: 10px 20px; background: var(--surface);
-    border-top: 1px solid var(--border);
-  }
-  .tool {
-    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-    border-radius: 7px; padding: 7px 13px;
-    font-size: 12px; font-family: 'Inter', sans-serif;
-    color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 5px;
-    transition: all 0.15s;
-  }
+  .toolbar { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; padding: 9px 16px; background: var(--surface); border-top: 1px solid var(--border); }
+  .tool { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 7px; padding: 6px 12px; font-size: 12px; font-family: 'Inter', sans-serif; color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s; }
   .tool:hover { border-color: var(--accent); color: var(--accent); }
 
-  .toast {
-    position: fixed; bottom: 22px; left: 50%;
-    transform: translateX(-50%) translateY(70px);
-    background: #00e5a0; color: #0d0f1a;
-    padding: 10px 22px; border-radius: 100px;
-    font-weight: 700; font-size: 13px;
-    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-    z-index: 999; pointer-events: none;
-  }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(70px); background: #00e5a0; color: #0d0f1a; padding: 10px 22px; border-radius: 100px; font-weight: 700; font-size: 13px; transition: transform 0.3s cubic-bezier(.34,1.56,.64,1); z-index: 999; pointer-events: none; }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  @media(max-width:700px) {
-    .layout { flex-direction: column; }
-    .sidebar { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid var(--border); }
-    .canvas-area { padding: 16px; }
-  }
+  @media(max-width:700px) { .layout{flex-direction:column} .sidebar{width:100%;min-width:unset;border-right:none;border-bottom:1px solid var(--border)} }
 </style>
 </head>
 <body>
@@ -212,314 +97,325 @@
 <header>
   <div class="logo">🎮</div>
   <h1>Roblox Clothing Copier</h1>
-  <div class="rbx-badge">2D Template Tool</div>
+  <div class="badge">2D Template Tool</div>
 </header>
 
 <div class="layout">
-
-  <!-- SIDEBAR -->
   <div class="sidebar">
 
-    <!-- Type -->
     <div>
-      <div class="label">Тип одежды</div>
+      <div class="lbl">Тип одежды</div>
       <div class="type-tabs">
-        <button class="tab active" id="tab-shirt" onclick="setType('shirt')">
-          <span class="t-icon">👕</span> Classic Shirts
-        </button>
-        <button class="tab" id="tab-pants" onclick="setType('pants')">
-          <span class="t-icon">👖</span> Classic Pants
-        </button>
-        <button class="tab" id="tab-tshirt" onclick="setType('tshirt')">
-          <span class="t-icon">🎽</span> Classic T-Shirts
-        </button>
+        <button class="tab active" id="tab-shirt" onclick="setType('shirt')"><span class="ti">👕</span> Classic Shirts</button>
+        <button class="tab" id="tab-pants" onclick="setType('pants')"><span class="ti">👖</span> Classic Pants</button>
+        <button class="tab" id="tab-tshirt" onclick="setType('tshirt')"><span class="ti">🎽</span> Classic T-Shirts</button>
       </div>
     </div>
 
-    <!-- Upload -->
     <div>
-      <div class="label">Загрузить файл</div>
-      <div class="upload-zone" id="uploadZone">
+      <div class="lbl">Загрузить файл</div>
+      <div class="upload-zone">
         <input type="file" accept="image/*" onchange="handleFile(event)" />
-        <div class="u-icon">📂</div>
-        <p><strong>Выбери файл</strong> или перетащи<br/>PNG, JPG — любой размер</p>
+        <div class="ui">📂</div>
+        <p><strong>Выбери файл</strong> или перетащи<br/>PNG, JPG</p>
       </div>
     </div>
 
-    <!-- Asset ID -->
     <div>
-      <div class="label">ID ассета Roblox</div>
+      <div class="lbl">ID ассета Roblox</div>
       <div class="row">
-        <input class="inp" type="text" id="assetId" placeholder="Напр: 12345678" />
-        <button class="btn" onclick="loadById()">↓</button>
+        <input class="inp" type="text" id="assetId" placeholder="Напр: 7238044943" onkeydown="if(event.key==='Enter')loadById()" />
+        <button class="btn" id="loadBtn" onclick="loadById()">↓</button>
       </div>
-      <div class="hint">URL: roblox.com/catalog/<b>12345678</b>/...</div>
+      <div id="idStatus" class="id-status"></div>
+      <div class="hint" style="margin-top:4px;">URL: roblox.com/catalog/<b>ID</b>/название</div>
     </div>
 
-    <!-- Adjustments -->
     <div>
-      <div class="label">Цвет / Яркость</div>
+      <div class="lbl">Цвет / Яркость</div>
       <div class="sliders">
-        <div class="sl-row">
-          <label>Яркость</label>
-          <input type="range" min="-100" max="100" value="0" id="br" oninput="applyFilters()" />
-          <span id="brv">0</span>
-        </div>
-        <div class="sl-row">
-          <label>Контраст</label>
-          <input type="range" min="-100" max="100" value="0" id="co" oninput="applyFilters()" />
-          <span id="cov">0</span>
-        </div>
-        <div class="sl-row">
-          <label>Насыщ.</label>
-          <input type="range" min="-100" max="100" value="0" id="sa" oninput="applyFilters()" />
-          <span id="sav">0</span>
-        </div>
-        <button class="btn btn-outline" style="font-size:11px;padding:6px;" onclick="resetFilters()">Сбросить</button>
+        <div class="sl"><label>Яркость</label><input type="range" min="-100" max="100" value="0" id="br" oninput="applyF()"/><span id="brv">0</span></div>
+        <div class="sl"><label>Контраст</label><input type="range" min="-100" max="100" value="0" id="co" oninput="applyF()"/><span id="cov">0</span></div>
+        <div class="sl"><label>Насыщ.</label><input type="range" min="-100" max="100" value="0" id="sa" oninput="applyF()"/><span id="sav">0</span></div>
+        <button class="btn btn-o" style="font-size:11px;padding:6px;" onclick="resetF()">Сбросить</button>
       </div>
     </div>
 
-    <!-- Export -->
     <div class="export-stack">
-      <div class="label">Экспорт</div>
-      <button class="btn btn-blue" onclick="exportPNG()">⬇ Скачать PNG</button>
-      <button class="btn btn-outline" onclick="copyClip()">📋 Скопировать</button>
+      <div class="lbl">Экспорт</div>
+      <button class="btn btn-teal" onclick="exportPNG()">⬇ Скачать PNG</button>
+      <button class="btn btn-o" onclick="copyClip()">📋 Скопировать</button>
       <div class="hint">Загружай в Roblox: <b>Create → Clothing</b><br/>Рубашка/Штаны: <b>585×559 px</b><br/>Футболка: <b>128×128 px</b></div>
     </div>
 
   </div>
 
-  <!-- CANVAS -->
-  <div style="display:flex;flex-direction:column;flex:1;">
+  <div style="display:flex;flex-direction:column;flex:1;min-width:0;">
     <div class="canvas-area" id="canvasArea">
-
-      <div id="emptyState" class="empty-state">
-        <div class="e-icon">👕</div>
+      <div id="emptyState" class="empty">
+        <div class="ei">👕</div>
         <p>Загрузи одежду или вставь ID</p>
         <small>PNG/JPG файл или номер ассета из Roblox</small>
       </div>
-
       <div class="canvas-wrap" id="canvasWrap">
         <div class="checker"></div>
         <canvas id="cv"></canvas>
       </div>
-
-      <div class="meta-pills" id="metaPills" style="display:none;">
+      <div class="pills" id="metaPills" style="display:none;">
         <div class="pill"><div class="dot"></div><span id="dimPill">585×559 px</span></div>
         <div class="pill"><div class="dot"></div><span id="typePill">Classic Shirts</span></div>
         <div class="pill"><div class="dot" style="background:var(--accent)"></div><span>PNG</span></div>
       </div>
-
-      <div class="action-row" id="actionRow" style="display:none;">
-        <button class="btn btn-outline" onclick="doFlip()">↔ Отразить</button>
-        <button class="btn btn-outline" onclick="doRotate()">↻ Повернуть</button>
-        <button class="btn btn-outline" onclick="showTplLines()">📐 Шаблон</button>
-        <button class="btn btn-blue" onclick="exportPNG()">⬇ Скачать</button>
+      <div class="act-row" id="actRow" style="display:none;">
+        <button class="btn btn-o" onclick="doFlip()">↔ Отразить</button>
+        <button class="btn btn-o" onclick="doRot()">↻ Повернуть</button>
+        <button class="btn btn-o" onclick="showTpl()">📐 Шаблон</button>
+        <button class="btn btn-teal" onclick="exportPNG()">⬇ Скачать</button>
       </div>
-
     </div>
 
     <div class="toolbar">
       <button class="tool" onclick="toggleGrid()">⊞ Сетка</button>
-      <button class="tool" onclick="zoomIn()">🔍 +</button>
-      <button class="tool" onclick="zoomOut()">🔍 −</button>
-      <button class="tool" onclick="resetZoom()">100%</button>
+      <button class="tool" onclick="zIn()">🔍 +</button>
+      <button class="tool" onclick="zOut()">🔍 −</button>
+      <button class="tool" onclick="zReset()">100%</button>
       <button class="tool" onclick="clearAll()">🗑 Очистить</button>
     </div>
   </div>
-
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 const TYPES = {
-  shirt:  { w: 585, h: 559, label: 'Classic Shirts' },
-  pants:  { w: 585, h: 559, label: 'Classic Pants' },
-  tshirt: { w: 128, h: 128, label: 'Classic T-Shirts' }
+  shirt:  { w:585, h:559, label:'Classic Shirts' },
+  pants:  { w:585, h:559, label:'Classic Pants' },
+  tshirt: { w:128, h:128, label:'Classic T-Shirts' }
 };
 
-let type = 'shirt';
-let img = null;
-let rot = 0, flip = false, sc = 1, grid = false;
-let br = 0, co = 0, sa = 0;
+let type='shirt', img=null, rot=0, flip=false, sc=1, grid=false;
+let br=0, co=0, sa=0;
+
+// CORS proxies to try in order
+const PROXIES = [
+  id => `https://corsproxy.io/?${encodeURIComponent(`https://assetdelivery.roblox.com/v1/asset/?id=${id}`)}`,
+  id => `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://assetdelivery.roblox.com/v1/asset/?id=${id}`)}`,
+  id => `https://corsproxy.io/?${encodeURIComponent(`https://www.roblox.com/asset-thumbnail/image?assetId=${id}&width=420&height=420&format=png`)}`,
+  id => `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://www.roblox.com/asset-thumbnail/image?assetId=${id}&width=420&height=420&format=png`)}`,
+];
 
 function setType(t) {
   type = t;
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + t).classList.add('active');
-  const cv = document.getElementById('cv');
-  cv.width = TYPES[t].w; cv.height = TYPES[t].h;
-  document.getElementById('dimPill').textContent = TYPES[t].w + '×' + TYPES[t].h + ' px';
-  document.getElementById('typePill').textContent = TYPES[t].label;
-  if (img) redraw();
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  const cv=document.getElementById('cv');
+  cv.width=TYPES[t].w; cv.height=TYPES[t].h;
+  document.getElementById('dimPill').textContent=TYPES[t].w+'×'+TYPES[t].h+' px';
+  document.getElementById('typePill').textContent=TYPES[t].label;
+  if(img) redraw();
 }
 
 function handleFile(e) {
-  const f = e.target.files[0]; if (!f) return;
-  const r = new FileReader();
-  r.onload = ev => loadImg(ev.target.result);
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>loadImgSrc(ev.target.result);
   r.readAsDataURL(f);
 }
 
-function loadImg(src) {
-  const i = new Image();
-  i.onload = () => { img = i; rot = 0; flip = false; showCv(); redraw(); };
-  i.onerror = () => toast('Не удалось загрузить изображение');
-  i.src = src;
+function loadImgSrc(src) {
+  const i=new Image();
+  i.onload=()=>{ img=i; rot=0; flip=false; showCv(); redraw(); };
+  i.onerror=()=>toast('Не удалось загрузить изображение');
+  i.src=src;
 }
 
 function showCv() {
-  document.getElementById('emptyState').style.display = 'none';
-  document.getElementById('canvasWrap').style.display = 'inline-block';
-  document.getElementById('metaPills').style.display = 'flex';
-  document.getElementById('actionRow').style.display = 'flex';
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('canvasWrap').style.display='inline-block';
+  document.getElementById('metaPills').style.display='flex';
+  document.getElementById('actRow').style.display='flex';
 }
 
 function redraw() {
-  if (!img) return;
-  const cv = document.getElementById('cv');
-  const ctx = cv.getContext('2d');
-  ctx.clearRect(0, 0, cv.width, cv.height);
+  if(!img) return;
+  const cv=document.getElementById('cv');
+  const ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,cv.width,cv.height);
   ctx.save();
-  ctx.translate(cv.width / 2, cv.height / 2);
-  if (flip) ctx.scale(-1, 1);
-  ctx.rotate(rot * Math.PI / 180);
-  ctx.filter = `brightness(${1 + br/100}) contrast(${1 + co/100}) saturate(${1 + sa/100})`;
-  ctx.drawImage(img, -cv.width/2, -cv.height/2, cv.width, cv.height);
+  ctx.translate(cv.width/2,cv.height/2);
+  if(flip) ctx.scale(-1,1);
+  ctx.rotate(rot*Math.PI/180);
+  ctx.filter=`brightness(${1+br/100}) contrast(${1+co/100}) saturate(${1+sa/100})`;
+  ctx.drawImage(img,-cv.width/2,-cv.height/2,cv.width,cv.height);
   ctx.restore();
-  if (grid) drawGrid(ctx, cv.width, cv.height);
+  if(grid) drawGrid(ctx,cv.width,cv.height);
 }
 
-function drawGrid(ctx, w, h) {
-  ctx.save();
-  ctx.strokeStyle = 'rgba(233,69,96,0.25)';
-  ctx.lineWidth = 0.5;
-  const s = type === 'tshirt' ? 8 : 32;
-  for (let x = 0; x <= w; x += s) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
-  for (let y = 0; y <= h; y += s) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+function drawGrid(ctx,w,h) {
+  ctx.save(); ctx.strokeStyle='rgba(233,69,96,0.25)'; ctx.lineWidth=0.5;
+  const s=type==='tshirt'?8:32;
+  for(let x=0;x<=w;x+=s){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<=h;y+=s){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
   ctx.restore();
 }
 
-function doFlip() { flip = !flip; redraw(); }
-function doRotate() { rot = (rot + 90) % 360; redraw(); }
+function doFlip(){flip=!flip;redraw();}
+function doRot(){rot=(rot+90)%360;redraw();}
 
-function showTplLines() {
-  if (!img) return;
+function showTpl(){
+  if(!img)return;
   redraw();
-  const cv = document.getElementById('cv');
-  const ctx = cv.getContext('2d');
-  const w = cv.width, h = cv.height;
-  ctx.save();
-  ctx.strokeStyle = 'rgba(0,229,160,0.7)';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([5,4]);
-  if (type === 'shirt') {
-    // Body
-    ctx.strokeRect(w*.128, h*.018, w*.744, h*.597);
-    // Left sleeve
-    ctx.strokeRect(w*.018, h*.018, w*.107, h*.394);
-    // Right sleeve
-    ctx.strokeRect(w*.875, h*.018, w*.107, h*.394);
-    // Collar hint
-    ctx.beginPath(); ctx.arc(w*.5, h*.018, w*.08, 0, Math.PI); ctx.stroke();
-  } else if (type === 'pants') {
-    // Waist
-    ctx.strokeRect(w*.128, h*.018, w*.744, h*.35);
-    // Left leg
-    ctx.strokeRect(w*.128, h*.37, w*.36, h*.6);
-    // Right leg
-    ctx.strokeRect(w*.512, h*.37, w*.36, h*.6);
-  } else {
-    // T-shirt: just center square for the image
-    const m = 8;
-    ctx.strokeRect(m, m, w - m*2, h - m*2);
-  }
+  const cv=document.getElementById('cv');
+  const ctx=cv.getContext('2d');
+  const w=cv.width,h=cv.height;
+  ctx.save(); ctx.strokeStyle='rgba(0,229,160,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
+  if(type==='shirt'){ ctx.strokeRect(w*.128,h*.018,w*.744,h*.597); ctx.strokeRect(w*.018,h*.018,w*.107,h*.394); ctx.strokeRect(w*.875,h*.018,w*.107,h*.394); }
+  else if(type==='pants'){ ctx.strokeRect(w*.128,h*.018,w*.744,h*.35); ctx.strokeRect(w*.128,h*.37,w*.36,h*.6); ctx.strokeRect(w*.512,h*.37,w*.36,h*.6); }
+  else { ctx.strokeRect(8,8,w-16,h-16); }
   ctx.restore();
   toast('Шаблон показан');
 }
 
-function applyFilters() {
-  br = +document.getElementById('br').value;
-  co = +document.getElementById('co').value;
-  sa = +document.getElementById('sa').value;
-  document.getElementById('brv').textContent = br;
-  document.getElementById('cov').textContent = co;
-  document.getElementById('sav').textContent = sa;
-  if (img) redraw();
+function applyF(){
+  br=+document.getElementById('br').value;
+  co=+document.getElementById('co').value;
+  sa=+document.getElementById('sa').value;
+  document.getElementById('brv').textContent=br;
+  document.getElementById('cov').textContent=co;
+  document.getElementById('sav').textContent=sa;
+  if(img)redraw();
 }
 
-function resetFilters() {
-  ['br','co','sa'].forEach(id => document.getElementById(id).value = 0);
-  br = co = sa = 0;
-  ['brv','cov','sav'].forEach(id => document.getElementById(id).textContent = '0');
-  if (img) redraw();
+function resetF(){
+  ['br','co','sa'].forEach(id=>document.getElementById(id).value=0);
+  br=co=sa=0;
+  ['brv','cov','sav'].forEach(id=>document.getElementById(id).textContent='0');
+  if(img)redraw();
 }
 
-function toggleGrid() { grid = !grid; redraw(); toast(grid ? 'Сетка включена' : 'Сетка выключена'); }
-function zoomIn() { sc = Math.min(sc*1.25, 4); document.getElementById('canvasWrap').style.transform = `scale(${sc})`; }
-function zoomOut() { sc = Math.max(sc/1.25, 0.2); document.getElementById('canvasWrap').style.transform = `scale(${sc})`; }
-function resetZoom() { sc = 1; document.getElementById('canvasWrap').style.transform = 'scale(1)'; }
+function toggleGrid(){grid=!grid;redraw();toast(grid?'Сетка включена':'Сетка выключена');}
+function zIn(){sc=Math.min(sc*1.25,4);document.getElementById('canvasWrap').style.transform=`scale(${sc})`;}
+function zOut(){sc=Math.max(sc/1.25,0.2);document.getElementById('canvasWrap').style.transform=`scale(${sc})`;}
+function zReset(){sc=1;document.getElementById('canvasWrap').style.transform='scale(1)';}
 
-function clearAll() {
-  img = null; rot = 0; flip = false; sc = 1;
-  document.getElementById('canvasWrap').style.display = 'none';
-  document.getElementById('emptyState').style.display = 'flex';
-  document.getElementById('metaPills').style.display = 'none';
-  document.getElementById('actionRow').style.display = 'none';
+function clearAll(){
+  img=null;rot=0;flip=false;sc=1;
+  document.getElementById('canvasWrap').style.display='none';
+  document.getElementById('emptyState').style.display='flex';
+  document.getElementById('metaPills').style.display='none';
+  document.getElementById('actRow').style.display='none';
   document.getElementById('cv').getContext('2d').clearRect(0,0,999,999);
-  resetFilters(); toast('Очищено');
+  setIdStatus('','');
+  resetF();toast('Очищено');
 }
 
-function exportPNG() {
-  if (!img) { toast('Нет изображения!'); return; }
-  const cv = document.getElementById('cv');
-  const a = document.createElement('a');
-  a.download = `roblox_${type}_${Date.now()}.png`;
-  a.href = cv.toDataURL('image/png');
+function exportPNG(){
+  if(!img){toast('Нет изображения!');return;}
+  const cv=document.getElementById('cv');
+  const a=document.createElement('a');
+  a.download=`roblox_${type}_${Date.now()}.png`;
+  a.href=cv.toDataURL('image/png');
   a.click();
   toast('PNG скачан!');
 }
 
-async function copyClip() {
-  if (!img) { toast('Нет изображения!'); return; }
-  const cv = document.getElementById('cv');
-  cv.toBlob(async b => {
-    try {
-      await navigator.clipboard.write([new ClipboardItem({'image/png': b})]);
-      toast('Скопировано!');
-    } catch { toast('Не удалось — скопируй вручную'); }
+async function copyClip(){
+  if(!img){toast('Нет изображения!');return;}
+  const cv=document.getElementById('cv');
+  cv.toBlob(async b=>{
+    try{ await navigator.clipboard.write([new ClipboardItem({'image/png':b})]); toast('Скопировано!'); }
+    catch{ toast('Не удалось — скопируй вручную'); }
   });
 }
 
-function loadById() {
+function setIdStatus(type, msg) {
+  const el = document.getElementById('idStatus');
+  el.className = 'id-status' + (type ? ' ' + type : '');
+  el.textContent = msg;
+}
+
+async function loadById() {
   const id = document.getElementById('assetId').value.trim();
-  if (!/^\d+$/.test(id)) { toast('Введи числовой ID!'); return; }
-  const url = `https://www.roblox.com/asset-thumbnail/image?assetId=${id}&width=420&height=420&format=png`;
-  const i = new Image();
-  i.crossOrigin = 'anonymous';
-  i.onload = () => { img = i; rot = 0; flip = false; showCv(); redraw(); toast('Загружено!'); };
-  i.onerror = () => toast('Ошибка загрузки. Проверь ID.');
-  i.src = url;
+  if(!/^\d+$/.test(id)){ toast('Введи числовой ID!'); return; }
+
+  setIdStatus('loading', '⏳ Загружаю...');
+  document.getElementById('loadBtn').disabled = true;
+
+  // Try to load via proxy — attempt multiple proxies
+  let loaded = false;
+  for(let i = 0; i < PROXIES.length; i++) {
+    const url = PROXIES[i](id);
+    try {
+      const ok = await tryLoadImage(url);
+      if(ok) { loaded = true; break; }
+    } catch(e) {}
+  }
+
+  document.getElementById('loadBtn').disabled = false;
+
+  if(!loaded) {
+    // Final fallback: open in new tab instructions
+    setIdStatus('err', '❌ Не удалось загрузить. Попробуй скачать вручную (см. инструкцию ниже)');
+    showManualInstructions(id);
+  }
+}
+
+function tryLoadImage(url) {
+  return new Promise((resolve) => {
+    const i = new Image();
+    i.crossOrigin = 'anonymous';
+    const timer = setTimeout(() => { resolve(false); }, 8000);
+    i.onload = () => {
+      clearTimeout(timer);
+      img = i; rot = 0; flip = false;
+      showCv(); redraw();
+      setIdStatus('ok', '✓ Загружено успешно!');
+      toast('Загружено!');
+      resolve(true);
+    };
+    i.onerror = () => { clearTimeout(timer); resolve(false); };
+    i.src = url;
+  });
+}
+
+function showManualInstructions(id) {
+  // Show a helper modal/section
+  const existing = document.getElementById('manualHelper');
+  if(existing) existing.remove();
+
+  const div = document.createElement('div');
+  div.id = 'manualHelper';
+  div.style.cssText = 'background:rgba(233,69,96,0.1);border:1px solid rgba(233,69,96,0.3);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;color:#ccc;margin-top:4px;';
+  div.innerHTML = `
+    <b style="color:#fff">📌 Как скопировать вручную:</b><br>
+    1. Открой <a href="https://www.roblox.com/catalog/${id}" target="_blank" style="color:var(--green)">эту страницу Roblox</a><br>
+    2. Нажми ПКМ на картинку одежды → "Открыть в новой вкладке"<br>
+    3. Сохрани изображение (Ctrl+S)<br>
+    4. Загрузи его сюда через кнопку "Загрузить файл"
+    <br><br>
+    <b style="color:#fff">Или используй сторонний сайт:</b><br>
+    <a href="https://rblx.trade/item/${id}" target="_blank" style="color:var(--green)">rblx.trade/item/${id}</a> → скачай шаблон
+  `;
+  document.getElementById('assetId').parentElement.parentElement.appendChild(div);
 }
 
 // Drag & drop
 const area = document.getElementById('canvasArea');
-area.addEventListener('dragover', e => { e.preventDefault(); area.style.background = 'rgba(233,69,96,0.08)'; });
-area.addEventListener('dragleave', () => { area.style.background = ''; });
-area.addEventListener('drop', e => {
-  e.preventDefault(); area.style.background = '';
-  const f = e.dataTransfer.files[0];
-  if (!f || !f.type.startsWith('image/')) return;
-  const r = new FileReader();
-  r.onload = ev => loadImg(ev.target.result);
+area.addEventListener('dragover', e=>{ e.preventDefault(); area.style.background='rgba(233,69,96,0.08)'; });
+area.addEventListener('dragleave', ()=>{ area.style.background=''; });
+area.addEventListener('drop', e=>{
+  e.preventDefault(); area.style.background='';
+  const f=e.dataTransfer.files[0];
+  if(!f||!f.type.startsWith('image/'))return;
+  const r=new FileReader();
+  r.onload=ev=>loadImgSrc(ev.target.result);
   r.readAsDataURL(f);
 });
 
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
 }
 
 setType('shirt');
